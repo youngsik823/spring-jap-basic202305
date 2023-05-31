@@ -72,7 +72,7 @@ class EmployeeRepositoryTest {
                 .findById(id)
                 .orElseThrow(
                         () -> new RuntimeException("사원이 없음")
-                );// null이 나오면 사원이 없음 이라고 나온다
+                );
         //then
         System.out.println("\n\n\n");
         System.out.println("employee = " + employee);
@@ -81,19 +81,21 @@ class EmployeeRepositoryTest {
         assertEquals("어피치", employee.getName());
     }
 
-    // 단방향 이라서 부서일때는 조인이 안나간다
     @Test
     @DisplayName("부서 정보 조회")
     void testFindDept() {
         //given
         Long id = 1L;
         //when
-        Department department = departmentRepository.findById(id)
+        Department department = departmentRepository
+                .findById(id)
                 .orElseThrow();
         //then
         System.out.println("\n\n\n");
         System.out.println("department = " + department);
         System.out.println("\n\n\n");
-         }
+    }
+
+
 
 }
