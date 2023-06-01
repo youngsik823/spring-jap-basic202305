@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -89,4 +91,37 @@ class DepartmentRepositoryTest {
         //then
     }
 
+    @Test
+    @DisplayName("N+1 문제 발생 예시") // 부서 한번 사원 여러번
+    void testNPlus1Ex() {
+
+        List<Department> departments = departmentRepository.findAll();
+
+        departments.forEach(dept -> {
+            System.out.println("\n\n======= 사원 리스트 =======");
+
+            List<Employee> employees = dept.getEmployees();
+            System.out.println(employees);
+
+            System.out.println("\n\n");
+        });
+
+    }
+
+    @Test // join
+    @DisplayName("N+1 문제 해결 예시") // 부서 한번 사원 여러번
+    void testNPlus1Solution() {
+
+        List<Department> departments = departmentRepository.findAllIncludeEmployees();
+
+        departments.forEach(dept -> {
+            System.out.println("\n\n======= 사원 리스트 =======");
+
+            List<Employee> employees = dept.getEmployees();
+            System.out.println(employees);
+
+            System.out.println("\n\n");
+        });
+
+    }
 }
