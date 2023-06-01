@@ -39,6 +39,16 @@ public class Post {
     private LocalDateTime updateDate; // 수정시간
 
     // db에 넣는게 아니고 연관관계를 나타낸다.
+    // 엔터티 변환할때는 해시테그를 넣는게 아니다.
     @OneToMany(mappedBy = "post") // 상대방 별칭을 적어줘야 한다
+    @Builder.Default
     private List<HashTag> hashTags = new ArrayList<>();
+    // 자동으로 갱신 안된다.
+    // 양방향 매핑에서 리스트쪽에 데이터를 추가하는 편의 메서드 생성
+    public void addHashTag(HashTag hashTag) {
+        hashTags.add(hashTag);
+        if (this != hashTag.getPost()) {
+            hashTag.setPost(this);
+        } // this는 Post
+    }
 }
