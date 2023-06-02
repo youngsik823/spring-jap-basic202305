@@ -39,8 +39,8 @@ public class Post {
     private LocalDateTime updateDate; // 수정시간
 
     // db에 넣는게 아니고 연관관계를 나타낸다.
-    // 엔터티 변환할때는 해시테그를 넣는게 아니다.
-    @OneToMany(mappedBy = "post") // 상대방 별칭을 적어줘야 한다
+    // 엔터티 변환할때는 해시테그를 넣는게 아니다. // orphanRemoval = true 고아 객체를 같이 지울까요?
+    @OneToMany(mappedBy = "post", orphanRemoval = true) // 상대방 별칭을 적어줘야 한다
     @Builder.Default
     private List<HashTag> hashTags = new ArrayList<>();
     // 자동으로 갱신 안된다.

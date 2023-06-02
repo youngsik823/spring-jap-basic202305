@@ -22,8 +22,8 @@ public class HashTag {
 
     private String tagName; // 해시태그 이름
 
-    // 단방향
-    @ManyToOne(fetch = FetchType.LAZY)
+    // 단방향                             // hashTag를 같이 지울때 cascade를 쓴다.
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "post") // 상대방 pk와 똑같이 지으면 편함
     private Post post;
 }
